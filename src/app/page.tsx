@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { db } from "~/server/db";
+export const dynamic = "force-dynamic"; // this stops Next's aggressive caching and forces the page to be re-generated when db changes.
 
 const mockUrls = [
   "https://utfs.io/f/ed055d37-0b1a-4e9a-b7ff-a577640bee24-lvb4e2.jpg",
@@ -20,6 +20,9 @@ export default async function HomePage() {
   return (
     <main className="">
       <div className="flex flex-wrap gap-4">
+        {posts.map((post) => (
+          <div key={post.id} className="w-48">{post.name}</div>
+        ))}
         {[...mockImages, ...mockImages, ...mockImages].map((image, index) => (
           <div key={image.id + "-" + index} className="w-48">
             <img src={image.url} />
